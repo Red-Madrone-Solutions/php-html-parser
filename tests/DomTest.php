@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class DomTest extends TestCase
 {
-    public function tearDown()
+    public function tearDown() : void
     {
         Mockery::close();
     }

@@ -7,12 +7,12 @@ use PHPUnit\Framework\TestCase;
 
 class StaticDomTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         StaticDom::mount();
     }
 
-    public function tearDown()
+    public function tearDown() : void
     {
         StaticDom::unload();
     }
