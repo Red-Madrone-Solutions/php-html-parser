@@ -254,6 +254,7 @@ class NodeParentTest extends TestCase
         $parent = new Node();
         $child = new Node();
         $parent->addChild($child);
+        $this->expectException(\PHPHtmlParser\Exceptions\CircularException::class);
         $parent->setParent($child);
     }
 
@@ -265,6 +266,7 @@ class NodeParentTest extends TestCase
         $parent = new Node();
         $child = new Node();
         $parent->addChild($child);
+        $this->expectException(\PHPHtmlParser\Exceptions\CircularException::class);
         $child->addChild($parent);
     }
 
@@ -274,6 +276,7 @@ class NodeParentTest extends TestCase
     public function testAddItselfAsChild()
     {
         $parent = new Node();
+        $this->expectException(\PHPHtmlParser\Exceptions\CircularException::class);
         $parent->addChild($parent);
     }
 

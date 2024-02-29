@@ -227,7 +227,7 @@ class DomTest extends TestCase
     {
         $dom = new Dom();
         $dom->loadStr('<strong>hello</strong><code class="language-php">$foo = "bar";</code>');
-        $this->assertInternalType('array', $dom->getChildren());
+        $this->assertIsArray($dom->getChildren());
     }
 
     public function testHasChildren()

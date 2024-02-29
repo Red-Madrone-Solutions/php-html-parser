@@ -49,6 +49,7 @@ class StaticDomTest extends TestCase
      */
     public function testFindNoloadStr()
     {
+        $this->expectException(\PHPHtmlParser\Exceptions\NotLoadedException::class);
         Dom::find('.post-user font', 0);
     }
 

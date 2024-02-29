@@ -38,6 +38,7 @@ class CollectionTest extends TestCase
     public function testCallNoNodes()
     {
         $collection = new Collection();
+        $this->expectException(\PHPHtmlParser\Exceptions\EmptyCollectionException::class);
         $collection->innerHtml();
     }
 
@@ -86,6 +87,7 @@ class CollectionTest extends TestCase
     public function testGetNoNodes()
     {
         $collection = new Collection();
+        $this->expectException(\PHPHtmlParser\Exceptions\EmptyCollectionException::class);
         $collection->innerHtml;
     }
 

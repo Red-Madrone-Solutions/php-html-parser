@@ -95,6 +95,7 @@ class NodeHtmlTest extends TestCase
         $parent->addChild($childbr);
         $childa->addChild(new TextNode('link'));
 
+        $this->expectException(\PHPHtmlParser\Exceptions\UnknownChildTypeException::class);
         $inner = $parent->innerHtml();
         $this->assertEquals($inner, $parent->innerHtml());
     }
@@ -508,6 +509,7 @@ class NodeHtmlTest extends TestCase
     {
         $a = new Tag('a');
         $node = new HtmlNode($a);
+        $this->expectException(\PHPHtmlParser\Exceptions\ParentNotFoundException::class);
         $node->ancestorByTag('div');
     }
 

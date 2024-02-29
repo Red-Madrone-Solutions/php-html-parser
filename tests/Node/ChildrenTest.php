@@ -44,6 +44,7 @@ class NodeChildrenTest extends TestCase
         $parent = new Node();
         $child = new Node();
         $child->setParent($parent);
+        $this->expectException(\PHPHtmlParser\Exceptions\ChildNotFoundException::class);
         $child->nextSibling();
     }
 
@@ -53,6 +54,7 @@ class NodeChildrenTest extends TestCase
     public function testNextSiblingNoParent()
     {
         $child = new Node();
+        $this->expectException(\PHPHtmlParser\Exceptions\ParentNotFoundException::class);
         $child->nextSibling();
     }
 
@@ -74,6 +76,7 @@ class NodeChildrenTest extends TestCase
         $parent = new Node();
         $node = new Node();
         $node->setParent($parent);
+        $this->expectException(\PHPHtmlParser\Exceptions\ChildNotFoundException::class);
         $node->previousSibling();
     }
 
@@ -83,6 +86,7 @@ class NodeChildrenTest extends TestCase
     public function testPreviousSiblingNoParent()
     {
         $child = new Node();
+        $this->expectException(\PHPHtmlParser\Exceptions\ParentNotFoundException::class);
         $child->previousSibling();
     }
 

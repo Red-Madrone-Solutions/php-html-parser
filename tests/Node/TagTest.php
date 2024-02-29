@@ -36,6 +36,7 @@ class NodeTagTest extends TestCase
         $tag = new Tag('a');
         $tag->setAttribute('href', 'http://google.com');
         $tag->removeAttribute('href');
+        $this->expectException(\PHPHtmlParser\Exceptions\Tag\AttributeNotFoundException::class);
         $tag->getAttribute('href');
     }
 
@@ -189,6 +190,6 @@ class NodeTagTest extends TestCase
     {
         $tag = new Tag('div');
         $tag->setStyleAttributeValue('display', 'none');
-        $this->assertInternalType('array', $tag->getStyleAttributeArray());
+        $this->assertIsArray($tag->getStyleAttributeArray());
     }
 }
