@@ -265,6 +265,15 @@ abstract class AbstractNode
     }
 
     /**
+     * Check if the current node has a next sibling that is an Html (not Text) node.
+     */
+    public function hasNextHtmlSibling() : bool
+    {
+        return !is_null($this->nextHtmlSibling());
+    }
+
+
+    /**
      * Attempts to get the next sibling.
      *
      * @throws ChildNotFoundException
@@ -277,6 +286,30 @@ abstract class AbstractNode
         }
 
         return $this->parent->nextChild($this->id);
+    }
+
+    /**
+     * Get the next sibling Html (not Text) node
+     */
+    public function nextHtmlSibling() : ?HtmlNode
+    {
+
+        try {
+            $sibling = $this->nextSibling();
+            while ( $sibling->isTextNode() ) {
+                $sibling = $sibling->nextSibling();
+            }
+        } catch (ParentNotFoundException $e) {
+            unset($e);
+            
+            return null;
+        } catch (ChildNotFoundException $e) {
+            unset($e);
+
+            return null;
+        }
+
+        return $sibling->isTextNode() ? null : $sibling;
     }
 
     /**

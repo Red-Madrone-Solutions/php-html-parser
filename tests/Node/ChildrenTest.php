@@ -3,7 +3,9 @@
 declare(strict_types=1);
 require_once 'tests/data/MockNode.php';
 
+use PHPHtmlParser\Dom\Node\HtmlNode;
 use PHPHtmlParser\Dom\Node\MockNode as Node;
+use PHPHtmlParser\Dom\Node\TextNode;
 use PHPUnit\Framework\TestCase;
 
 class NodeChildrenTest extends TestCase
@@ -36,6 +38,18 @@ class NodeChildrenTest extends TestCase
         $this->assertEquals($child2->id(), $child->nextSibling()->id());
     }
 
+    public function testNextHtmlSibling()
+    {
+        $parent = new Node();
+        $html_child_1 = new HtmlNode('div');
+        $text_child = new TextNode('text');
+        $html_child_2 = new HtmlNode('div');
+        $html_child_1->setParent($parent);
+        $text_child->setParent($parent);
+        $html_child_2->setParent($parent);
+        $this->assertEquals($html_child_2->id(), $html_child_1->nextHtmlSibling()->id());
+    }
+
     /**
      * @expectedException \PHPHtmlParser\Exceptions\ChildNotFoundException
      */
@@ -46,6 +60,18 @@ class NodeChildrenTest extends TestCase
         $child->setParent($parent);
         $this->expectException(\PHPHtmlParser\Exceptions\ChildNotFoundException::class);
         $child->nextSibling();
+    }
+
+    public function testNextHtmlSiblingNotFound()
+    {
+        $parent = new Node();
+        $html_child = new HtmlNode('div');
+        $html_child->setParent($parent);
+        $this->assertNull($html_child->nextHtmlSibling());
+
+        $text_child = new TextNode('text');
+        $text_child->setParent($parent);
+        $this->assertNull($html_child->nextHtmlSibling());
     }
 
     /**
